@@ -9,32 +9,153 @@
             padding: 0;
             height: 100%;
             font-family: "Microsoft YaHei", sans-serif;
+            background-color: rgba(0,0,0,0); /* 透明背景 */
             color: #fff;
-            background: transparent;
             overflow: hidden;
-        }
-        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
         }
+
+        .container {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.35); /* 半透明背景 */
+            max-width: 400px;
+            width: 90%;
+            box-sizing: border-box;
+        }
+
         .profile-img {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border: 2px solid #fff;
         }
+
         .script-img {
             width: 100px;
             height: 100px;
             border-radius: 10%;
             object-fit: cover;
-            margin-top: 10px;
+            margin-top: 15px;
+        }
+
+        h1 {
+            margin: 5px 0;
+            font-size: 28px;
+        }
+
+        p {
+            margin: 5px 0 15px 0;
+            font-size: 16px;
+        }
+
+        a {
+            color: #00f;
+            text-decoration: none;
+            margin: 0 5px;
+            word-break: break-all;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+            word-break: break-all;
+        }
+
+        button:hover {
+            background-color: rgba(255,255,255,0.4);
+        }
+
+        /* 飘雪花效果 */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            z-index: 9999;
+            user-select: none;
+            pointer-events: none;
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 500px) {
+            .profile-img { width: 120px; height: 120px; }
+            .script-img { width: 80px; height: 80px; }
+            h1 { font-size: 24px; }
+            p { font-size: 14px; }
+            button { padding: 6px 12px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img class="profile-img" src="https://raw.githubusercontent.com/xiao66778/-/refs/heads/main/head_1749427260.png.jpg" alt="晓空头像">
+    <h1>晓空</h1>
+    <p>晓空脚本作者</p>
+
+    <div>
+        <a href="https://github.com/xiao66778" target="_blank">GitHub</a>
+    </div>
+
+    <div class="button-group">
+        <button onclick="copyText('2032685964')">复制 QQ 号</button>
+        <button onclick="copyText('lgcdpb4@gmail.com')">复制邮箱</button>
+        <button onclick="copyText('loadstring(game:HttpGet(\"\\104\\116\\116\\112\\115\\58\\47\\47\\114\\97\\119\\46\\103\\105\\116\\104\\117\\98\\117\\115\\101\\114\\99\\111\\110\\116\\101\\110\\116\\46\\99\\111\\109\\47\\120\\105\\97\\111\\54\\54\\55\\55\\56\\47\\51\\49\\55\\56\\72\\117\\98\\47\\114\\101\\102\\115\\47\\104\\101\\97\\100\\115\\47\\109\\97\\105\\110\\47\\120\\105\\97\\111\\72\\117\\98\\.\\108\\117\\97\"))()')">复制 Roblox 脚本</button>
+        <button onclick="copyText('@3146X8')">复制 Roblox 用户名</button>
+    </div>
+
+    <img class="script-img" src="https://raw.githubusercontent.com/xiao66778/-/refs/heads/main/IMG_20250729_215707.png" alt="脚本头像">
+</div>
+
+<script>
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('已复制: ' + text);
+        }).catch(() => alert('复制失败'));
+    }
+
+    const snowflakeChars = ['❄', '✻', '❅', '✼'];
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.fontSize = (10 + Math.random() * 20) + 'px';
+        snowflake.style.animationDuration = (5 + Math.random() * 10) + 's';
+        snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+        document.body.appendChild(snowflake);
+        setTimeout(() => snowflake.remove(), (parseFloat(snowflake.style.animationDuration) * 1000));
+    }
+
+    setInterval(createSnowflake, 200);
+</script>
+
+</body>
+</html>            margin-top: 10px;
         }
         h1 {
             margin: 5px 0;
