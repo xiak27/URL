@@ -5,14 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>晓空的个人网页</title>
 <style>
-body{margin:0;font-family:Poppins,sans-serif;background:linear-gradient(135deg,#1f1c2c,#928dab);overflow:hidden;color:#fff}
-canvas{position:fixed;top:0;left:0;z-index:0}
-.container{position:relative;z-index:1;background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border-radius:25px;padding:40px 30px;max-width:500px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.4)}
-.avatar{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);margin-bottom:20px}
-.button{display:inline-block;margin:6px 5px;padding:10px 20px;border-radius:12px;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.3);cursor:pointer;transition:all .3s;text-decoration:none;font-size:.9em}
-.button:hover{background:rgba(255,255,255,0.25);box-shadow:0 6px 15px rgba(0,0,0,0.3)}
-.script-box{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:10px 12px;border-radius:12px;margin:10px auto 0 auto;text-align:left;font-family:'Courier New',monospace;font-size:.88em;max-width:350px;height:90px;overflow-y:auto;border:1px solid rgba(255,255,255,0.2);white-space:pre-wrap;word-break:break-word}
-textarea{width:90%;height:80px;border-radius:10px;padding:8px;background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);resize:none}
+body {
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(135deg,#1f1c2c,#928dab);
+  overflow:hidden;
+  color:#fff;
+}
+canvas {
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:0;
+}
+.container {
+  position:relative;
+  z-index:1;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border-radius:25px;
+  padding:40px 30px;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+.avatar {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,0.3);
+  margin-bottom:20px;
+}
+.button {
+  display:inline-block;
+  margin:6px 5px;
+  padding:10px 20px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  color:#fff;
+  font-weight:600;
+  border:1px solid rgba(255,255,255,0.3);
+  cursor:pointer;
+  transition:all .3s;
+  text-decoration:none;
+  font-size:.9em;
+}
+.button:hover {
+  background:rgba(255,255,255,0.25);
+  box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+.script-box {
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  padding:10px 12px;
+  border-radius:12px;
+  margin:10px auto 0 auto;
+  text-align:left;
+  font-family:'Courier New',monospace;
+  font-size:.88em;
+  max-width:350px;
+  height:90px;
+  overflow-y:auto;
+  border:1px solid rgba(255,255,255,0.2);
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+textarea {
+  width:90%;
+  height:80px;
+  border-radius:10px;
+  padding:8px;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  resize:none;
+}
 </style>
 </head>
 <body>
@@ -35,6 +104,57 @@ app.innerHTML=`
 <img src="${d.avatar}" class="avatar">
 <p>${d.intro}</p>
 <a href="${d.github}" target="_blank" class="button">GitHub</a>
+
+<div style="margin-top:15px;">
+<button class="button" onclick="copyText(d.robloxScript,'Roblox脚本已复制')">复制Roblox脚本</button>
+</div>
+<div class="script-box"><pre>${d.robloxScript}</pre></div>
+
+<div style="margin-top:15px;">
+<button class="button" onclick="copyText(d.qq,'QQ已复制')">复制QQ: ${d.qq}</button>
+<button class="button" onclick="copyText(d.email,'邮箱已复制')">复制邮箱: ${d.email}</button>
+<button class="button" onclick="copyText(d.robloxUsername,'Roblox用户名已复制')">复制Roblox用户名: ${d.robloxUsername}</button>
+</div>
+
+<div style="margin-top:30px;">
+<textarea id="feedback-input" placeholder="请输入你的反馈内容"></textarea><br>
+<button class="button" onclick="submitFeedback()">提交反馈</button>
+</div>
+`;
+
+function copyText(value,msg){
+  navigator.clipboard.writeText(value).then(()=>alert(msg));
+}
+
+function submitFeedback(){
+  const t = document.getElementById("feedback-input").value.trim();
+  if(!t){alert("反馈不能为空"); return;}
+  fetch(d.feedbackWebhook,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      embeds:[{
+        title:"📢 脚本反馈",
+        description:t,
+        color:7506394
+      }]
+    })
+  }).then(r=> r.ok ? alert("反馈已发送") : alert("发送失败"))
+  .catch(()=>alert("发送失败"));
+}
+
+// 飘雪效果
+const c=document.getElementById("snow"),x=c.getContext("2d");
+let W=window.innerWidth,H=window.innerHeight;c.width=W;c.height=H;
+const f=[],fc=150;
+for(let i=0;i<fc;i++)f.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*4+1,d:Math.random()*fc,swing:Math.random()*2*Math.PI});
+function drawFlakes(){x.clearRect(0,0,W,H);x.fillStyle="rgba(255,255,255,0.8)";x.beginPath();for(let t=0;t<f.length;t++){const e=f[t];x.moveTo(e.x,e.y),x.arc(e.x,e.y,e.r,0,2*Math.PI,!0)}x.fill(),moveFlakes()}
+function moveFlakes(){for(let t=0;t<f.length;t++){const e=f[t];e.y+=Math.pow(e.d,.5)*.5+.5;e.x+=Math.sin(e.y*.02+e.swing)*1.5;e.y>H&&(e.y=0,e.x=Math.random()*W);e.x>W&&(e.x=0);e.x<0&&(e.x=W)}}
+function animateSnow(){drawFlakes(),requestAnimationFrame(animateSnow)}
+animateSnow(),window.addEventListener("resize",()=>{W=window.innerWidth,H=window.innerHeight;c.width=W;c.height=H});
+</script>
+</body>
+</html><a href="${d.github}" target="_blank" class="button">GitHub</a>
 
 <div style="margin-top:15px;">
 <button class="button" onclick="copyText(d.robloxScript,'脚本已复制')">复制Roblox脚本</button>
