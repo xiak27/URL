@@ -1,40 +1,130 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>晓空</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  overflow: hidden;
-  color: #fff;
-}
-canvas { position: fixed; top:0; left:0; z-index:0; }
+    <meta charset="UTF-8">
+    <title>晓空个人简介</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #fff;
+            background: transparent;
+            overflow: hidden;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid #fff;
+        }
+        .script-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10%;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+        h1 {
+            margin: 5px 0;
+            font-size: 32px;
+        }
+        p {
+            margin: 5px 0 20px 0;
+            font-size: 18px;
+        }
+        a {
+            color: #00f;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: rgba(255,255,255,0.4);
+        }
+        /* 飘雪花效果 */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            z-index: 9999;
+            user-select: none;
+            pointer-events: none;
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
 
-.container {
-  position: relative;
-  z-index: 1;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 40px 30px;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  margin: 20px auto;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1s forwards;
-}
+    <img class="profile-img" src="https://raw.githubusercontent.com/xiao66778/-/refs/heads/main/head_1749427260.png.jpg" alt="晓空头像">
+    <h1>晓空</h1>
+    <p>晓空脚本作者</p>
 
-@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    <div>
+        <a href="https://github.com/xiao66778" target="_blank">GitHub</a>
+    </div>
 
-.avatar {
-  width: 120px; height: 120px; border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.3);
+    <div>
+        <button onclick="copyText('2032685964')">复制 QQ 号</button>
+        <button onclick="copyText('lgcdpb4@gmail.com')">复制邮箱</button>
+        <button onclick="copyText('loadstring(game:HttpGet(\"\\104\\116\\116\\112\\115\\58\\47\\47\\114\\97\\119\\46\\103\\105\\116\\104\\117\\98\\117\\115\\101\\114\\99\\111\\110\\116\\101\\110\\116\\46\\99\\111\\109\\47\\120\\105\\97\\111\\54\\54\\55\\55\\56\\47\\51\\49\\55\\56\\72\\117\\98\\47\\114\\101\\102\\115\\47\\104\\101\\97\\100\\115\\47\\109\\97\\105\\110\\47\\120\\105\\97\\111\\72\\117\\98\\.\\108\\117\\97\"))()')">复制 Roblox 脚本</button>
+        <button onclick="copyText('@3146X8')">复制 Roblox 用户名</button>
+    </div>
+
+    <img class="script-img" src="https://raw.githubusercontent.com/xiao66778/-/refs/heads/main/IMG_20250729_215707.png" alt="脚本头像">
+
+    <script>
+        // 复制功能
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制: ' + text);
+            });
+        }
+
+        // 飘雪花生成
+        const snowflakeChars = ['❄', '✻', '❅', '✼'];
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.fontSize = (10 + Math.random() * 20) + 'px';
+            snowflake.style.animationDuration = (5 + Math.random() * 10) + 's';
+            snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+            document.body.appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), (parseFloat(snowflake.style.animationDuration) * 1000));
+        }
+
+        setInterval(createSnowflake, 200);
+    </script>
+
+</body>
+</html>  border: 3px solid rgba(255,255,255,0.3);
   margin-bottom: 20px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
