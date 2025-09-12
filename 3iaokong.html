@@ -55,6 +55,30 @@ function copyText(value, text){navigator.clipboard.writeText(b(value)).then(()=>
 
 function submitFeedback(){const t=document.getElementById("feedback-input").value.trim();if(!t)return alert(b("5Lit5paH5paH5a2Q"));fetch(b(d.feedbackWebhook),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({embeds:[{title:"📢 "+b("5Lit5paH5paH5a2Q"),description:t,color:7506394}]})}).then(r=>r.ok?alert(b("5Lit5paH5paH5a2Q")):alert(b("5Lit5paH5paH5a2Q"))).catch(()=>alert(b("5Lit5paH5paH5a2Q")))}
 
+// 飘雪效果
+const c=document.getElementById("snow"),x=c.getContext("2d");let W=window.innerWidth,H=window.innerHeight;c.width=W,c.height=H;const f=[],fc=150;for(let i=0;i<fc;i++)f.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*4+1,d:Math.random()*fc,swing:Math.random()*2*Math.PI});function drawFlakes(){x.clearRect(0,0,W,H);x.fillStyle="rgba(255,255,255,0.8)";x.beginPath();for(let t=0;t<f.length;t++){const e=f[t];x.moveTo(e.x,e.y),x.arc(e.x,e.y,e.r,0,2*Math.PI,!0)}x.fill(),moveFlakes()}function moveFlakes(){for(let t=0;t<f.length;t++){const e=f[t];e.y+=Math.pow(e.d,.5)*.5+.5,e.x+=Math.sin(e.y*.02+e.swing)*1.5,e.y>H&&(e.y=0,e.x=Math.random()*W),e.x>W&&(e.x=0),e.x<0&&(e.x=W)}}function animateSnow(){drawFlakes(),requestAnimationFrame(animateSnow)}animateSnow(),window.addEventListener("resize",()=>{W=window.innerWidth,H=window.innerHeight,c.width=W,c.height=H});</script>
+</body>
+</html>};
+
+function b(t){return decodeURIComponent(escape(atob(t)))}
+const app=document.getElementById("app");
+app.innerHTML=`<img src="${b(d.avatar)}" class="avatar"><h1>${b(d.name)}</h1><p>${b(d.intro)}</p><a href="${b(d.github)}" target="_blank" class="button">${b("aHR0cHM6Ly9naXRodWIuY29tL3hpYW82Njc3OA==")}</a>
+<div style="margin-top:15px;"><button class="button" onclick="copyText('${d.robloxScript}', '${d.textCopyScript}')">${b(d.textCopyScript)}</button></div>
+<div class="script-box"><pre id="script-content">${b(d.robloxScript)}</pre></div>
+<div style="margin-top:15px;">
+<button class="button" onclick="copyText('${d.qq}','${d.textCopyQQ}')">${b(d.textCopyQQ)}</button>
+<button class="button" onclick="copyText('${d.email}','${d.textCopyEmail}')">${b(d.textCopyEmail)}</button>
+<button class="button" onclick="copyText('${d.robloxUsername}','${d.textCopyRobloxUser}')">${b(d.textCopyRobloxUser)}</button>
+</div>
+<div style="margin-top:30px;">
+<textarea id="feedback-input" placeholder="${b(d.textFeedbackPlaceholder)}"></textarea><br>
+<button class="button" onclick="submitFeedback()">${b("5Lit5paH5paH5a2Q")}</button>
+</div>`;
+
+function copyText(value, text){navigator.clipboard.writeText(b(value)).then(()=>alert(b(text)+": "+b(value)))}
+
+function submitFeedback(){const t=document.getElementById("feedback-input").value.trim();if(!t)return alert(b("5Lit5paH5paH5a2Q"));fetch(b(d.feedbackWebhook),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({embeds:[{title:"📢 "+b("5Lit5paH5paH5a2Q"),description:t,color:7506394}]})}).then(r=>r.ok?alert(b("5Lit5paH5paH5a2Q")):alert(b("5Lit5paH5paH5a2Q"))).catch(()=>alert(b("5Lit5paH5paH5a2Q")))}
+
 const c=document.getElementById("snow"),x=c.getContext("2d");let W=window.innerWidth,H=window.innerHeight;c.width=W,c.height=H;const f=[],fc=150;for(let i=0;i<fc;i++)f.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*4+1,d:Math.random()*fc,swing:Math.random()*2*Math.PI});function drawFlakes(){x.clearRect(0,0,W,H);x.fillStyle="rgba(255,255,255,0.8)";x.beginPath();for(let t=0;t<f.length;t++){const e=f[t];x.moveTo(e.x,e.y),x.arc(e.x,e.y,e.r,0,2*Math.PI,!0)}x.fill(),moveFlakes()}function moveFlakes(){for(let t=0;t<f.length;t++){const e=f[t];e.y+=Math.pow(e.d,.5)*.5+.5,e.x+=Math.sin(e.y*.02+e.swing)*1.5,e.y>H&&(e.y=0,e.x=Math.random()*W),e.x>W&&(e.x=0),e.x<0&&(e.x=W)}}function animateSnow(){drawFlakes(),requestAnimationFrame(animateSnow)}animateSnow(),window.addEventListener("resize",()=>{W=window.innerWidth,H=window.innerHeight,c.width=W,c.height=H});</script>
 </body>
 </html>  border: 3px solid rgba(255,255,255,0.3);
